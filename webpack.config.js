@@ -21,7 +21,20 @@ module.exports = {
                 options:{
                     presets:["@babel/preset-env", "@babel/preset-react"]    // используемые плагины
                 }
+            },
+            {
+                test: /\.scss$/,
+                use: [{
+                    loader: "style-loader"
+                }, {
+                    loader: "css-loader"
+                }, {
+                    loader: "sass-loader"
+                }]
             }
         ]
+    },
+    resolve: {
+        extensions: ["", ".js", ".jsx"]
     }
 }

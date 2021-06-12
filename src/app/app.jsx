@@ -1,9 +1,17 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
-import ContentWrapper from './ContentWrapper/ContentWrapper.jsx';
+
+import {Provider} from "react-redux";
+import store from "./store";
+
+import AppView from './views/AppView';
+import './app.scss';
+
 
 
 ReactDOM.render(
-    <ContentWrapper />,
+    <Provider store={store}>
+        <AppView/>
+    </Provider>,
     document.getElementById("root")
 )
