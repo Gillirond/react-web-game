@@ -21,6 +21,8 @@ webSocketServer.on('connection', ws => {
     });
 
     ws.on("error", e => ws.send(e));
+
+    ws.on("close", () => console.log('Connection was closed'))
 });
 
 server.listen(process.env.PORT || 3001, () => {

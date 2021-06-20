@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import {Button, ButtonToolbar} from "react-bootstrap";
 
+import withLogging from "../../HOC/with-logging"
+
 import {getQuestionDare} from "../../../actions";
 
 const mapActionsToProps = {
@@ -9,12 +11,16 @@ const mapActionsToProps = {
 }
 
 function Dare(props) {
-    const {getQuestionDare, playerName, onDone, playerBGColor, quitPlaying} = props
+    const {getQuestionDare, playerName, onDone, playerBGColor, quitPlaying, consoleLog} = props
     const [question, setQuestion] = useState({text: 'loading...'})
 
     useEffect(() => {
-        getQuestionDare().then(result => setQuestion(result))
-    },[])
+        getQuestionDare().then(result => {
+            setQuestion(result)
+
+            consoleLog('getQuestionDare', result)
+        })
+    }, [])
 
     return (
         <div className="dare-question" style={{backgroundColor: playerBGColor}}>
@@ -28,4 +34,4 @@ function Dare(props) {
     )
 }
 
-export default connect(null, mapActionsToProps)(Dare)
+export default withLogging(connect(null, mapActionsToProps)(Dare))

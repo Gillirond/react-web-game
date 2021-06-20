@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import {Button, ButtonToolbar} from "react-bootstrap";
 
+import withLogging from "../../HOC/with-logging"
+
 import {getQuestionTruth} from "../../../actions";
 
 const mapActionsToProps = {
@@ -9,12 +11,16 @@ const mapActionsToProps = {
 }
 
 function Truth(props) {
-    const {playerName, onDone, playerBGColor, quitPlaying} = props
+    const {playerName, onDone, playerBGColor, quitPlaying, consoleLog} = props
     const [question, setQuestion] = useState({text: 'loading...'});
 
     useEffect(() => {
-        getQuestionTruth().then(result => setQuestion(result))
-    },[])
+        getQuestionTruth().then(result => {
+            setQuestion(result)
+
+            consoleLog('getQuestionTruth', result)
+        })
+    }, [])
 
     return (
         <div className="truth-question" style={{backgroundColor: playerBGColor}}>
@@ -28,4 +34,4 @@ function Truth(props) {
     )
 }
 
-export default connect(null, mapActionsToProps)(Truth)
+export default withLogging(connect(null, mapActionsToProps)(Truth))
